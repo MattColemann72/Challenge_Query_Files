@@ -1,0 +1,129 @@
+World Answers
+
+1)
+Using COUNT, get the number of cities in the USA.
+a)
+SELECT COUNT(CountryCode) FROM city WHERE countryCode = "USA"; -  274
+
+
+2)
+Find out the population and life expectancy for people in Argentina.
+Select the population & life expectancy from where name = Argentina in country table.
+a)
+SELECT Population, LifeExpectancy FROM country WHERE name = "Argentina"; - 37032000, 75.1
+
+
+3)
+Using IS NOT NULL, ORDER BY, and LIMIT, which country has the highest life expectancy?
+Need to read (SELECT) the name of the country and order by the life expectancy only showing the highest.
+a)
+SELECT Name FROM country WHERE Name IS NOT NULL ORDER BY LifeExpectancy DESC LIMIT 1; - Andorra
+
+
+4)
+Using JOIN ... ON, find the capital city of Spain.
+a)
+SELECT Capital FROM country WHERE Name = "Spain"; - Returns capital city code - 653
+SELECT * FROM city WHERE Name = "Madrid"; - Madrid ID matches - 653
+SELECT ct.Name FROM country cn JOIN city ct ON ct.ID = cn.Capital;
+SELECT ct.Name FROM country cn JOIN city ct ON ct.ID = cn.Capital WHERE cn.Name = "Spain"; //##### - Returns Name|Madrid - Final query just wanted to keep the evolution of my query to remind me where I went wrong.
+
+
+5)
+Using JOIN ... ON, list all the languages spoken in the Southeast Asia region.
+a)
+//From the country table show all the country codes which are in the Southeast Asia region.//
+//From the languages table using the country codes that I got in the last step, show what languages correspond to these country codes.//
+SELECT Code FROM country WHERE Region = "Southeast Asia";
+SELECT cl.Language FROM countrylanguage cl JOIN country cn ON cl.CountryCode = cn.Code WHERE cn.Region = "Southeast Asia"; //##### - Final Query
+
+
+6)
+Using a single query, list 25 cities around the world that start with the letter F.
+Select cities that start with "F" limit to 25.
+a)
+SELECT name FROM city WHERE name LIKE "F%" LIMIT 25; - Shows 25 cities beggining with F.
+
+
+8)
+Using IS NOT NULL, ORDER BY, and LIMIT, which country has the lowest population? Discard non-zero populations.
+a)
+SELECT Name, Population  FROM country  WHERE Population IS NOT NULL  ORDER BY Population LIMIT 7; - Shows only zero populations.
+SELECT Name, Population FROM country WHERE Population != 0 ORDER BY Population LIMIT 10; - shows lowest populations excluding zero populations.
+
+
+9)
+Using aggregate functions, return the number of countries the database contains.
+a)
+SELECT COUNT(Name) FROM country; - returns 239
+
+
+10)
+What are the top ten largest countries by area?
+SELECT name FROM country ORDER BY SurfaceArea LIMIT 10;
+a)
+SELECT name, SurfaceArea FROM country ORDER BY SurfaceArea DESC LIMIT 10; - returns 10 largest countries with their surface area.
+
+
+11)
+List the five largest cities by population in Japan.
+a)
+SELECT Name, Population FROM city WHERE CountryCode = "JPN" ORDER BY Population DESC LIMIT 5; - Returns 5 largest cities in Japan.
+
+
+12)
+List the names and country codes of every country with Elizabeth II as its Head of State. You will need to fix the mistake first!
+a)
+SELECT Name, Code FROM country WHERE HeadOfState = "Elisabeth II";
+
+
+13)
+List the top ten countries with the smallest population-to-area ratio. Discard any countries with a ratio of 0.
+a)
+SELECT Name, Population/SurfaceArea FROM country WHERE Population/SurfaceArea != 0 ORDER BY Population/SurfaceArea DESC LIMIT 10;
+
+
+14)
+List every unique world language.
+a)
+SELECT DISTINCT Language FROM countrylanguage;
+
+
+15)
+List the names and GNP of the world's top 10 richest countries.
+a)
+SELECT Name, GNP FROM country ORDER BY GNP DESC LIMIT 10;
+
+
+16)
+List the names of, and number of languages spoken by, the top ten most multilingual countries.
+Top 10 multilingual cuntries
+list name and number of languages.
+a)
+SELECT CountryCode, COUNT(Language) AS "Number of Languages Spoken" FROM countrylanguage GROUP BY CountryCode ORDER BY COUNT(Language) DESC LIMIT 10;
+
+
+17)
+List every country where over 50% of its population can speak German.
+a)
+Percentage
+countrylanguage
+SELECT CountryCode FROM countrylanguage WHERE Language = "German" AND Percentage >= 50; - This spits out the country codes, just need to use the join feature with the countries table.
+
+
+18)
+Which country has the worst life expectancy? Discard zero or null values.
+a)
+SELECT Name, LifeExpectancy FROM country WHERE LifeExpectancy IS NOT NULL OR LifeExpectancy != 0 ORDER BY LifeExpectancy LIMIT 1;
+
+
+19)
+List the top three most common government forms.
+a)
+
+
+
+20)
+How many countries have gained independence since records began?
+a)
+Select COUNT(IndepYear) FROM country WHERE IndepYear IS NOT NULL;
