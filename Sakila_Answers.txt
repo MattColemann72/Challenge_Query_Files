@@ -25,5 +25,56 @@ SELECT first_name, last_name FROM actor WHERE actor_id % 10 = 0;
 5)
 What is the description of the movie with an ID of 100?
 a)
-film_id
-description
+SELECT description FROM film WHERE film_id = 100;
+
+
+6)
+Find every R-rated movie.
+a)
+SELECT title FROM film WHERE rating = "R";
+
+
+7)
+Find every non-R-rated movie.
+a)
+SELECT title FROM film WHERE rating != "R";
+
+
+8)
+Find the ten shortest movies.
+a)
+SELECT title, length FROM film ORDER BY length LIMIT 10;
+
+
+9)
+Find the movies with the longest runtime, without using LIMIT.
+a)
+SELECT title, length FROM film ORDER BY length DESC;
+
+
+10)
+Find all movies that have deleted scenes.
+a)
+SELECT title FROM film Where special_features = 'Deleted Scenes';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
